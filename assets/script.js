@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const apiKey = '94dce9c5';
     const searchTerm = 'Inception';
 
+    movieIDList = 'tt0068646'; 
+
     fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}`)
     .then(response => response.json())
     .then(data => console.log(data))
