@@ -60,7 +60,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             exampleCorrectAnswer();
             openModal('Correct!', `Great job! Your answer is correct. ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);
         }else{
-            openModal('Wrong', `You chose ${firstMovieTitle}. But ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);      
+            openModal('Wrong', `You chose ${firstMovieTitle}. But ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate}. You end your game with a score of ${userScore} `);   
+            userScore = 0;   
         }
 
         updateImageSource();
@@ -74,7 +75,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             //exampleCorrectAnswer();
             openModal('Correct!', `Great job! Your answer is correct. ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);
         }else{
-            openModal('Wrong', `You chose ${secondMovieTitle}. But ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);
+            openModal('Wrong', `You chose ${secondMovieTitle}. But ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate}. You end your game with a score of ${userScore}`);
+            userScore = 0;
         }
         updateImageSource();
         updateScoreParagraph();
