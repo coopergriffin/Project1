@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         //checks if movies are the same and recalls the function if it is. 
         if (movie.id === movie1.id) {
             console.log("Same movies, calling updateImage again.");
-            await updateImageSource();
+            updateImageSource();
         }
         firstMovieTitle = movie.title;
         firstMovieDate = movie.release_date;
