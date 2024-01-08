@@ -40,7 +40,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         isFirstMovieOlder = movie.release_date <= movie1.release_date;
         console.log(isFirstMovieOlder);
-
+        if (movie.id === movie1.id) {
+            console.log("Same movies, calling updateImage again.");
+            await updateImageSource();
+        }
         firstMovieTitle = movie.title;
         firstMovieDate = movie.release_date;
         secondMovieTitle = movie1.title;
