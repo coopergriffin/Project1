@@ -6,9 +6,10 @@ const apiKeyOpenDB = '94dce9c5';
 
 document.addEventListener('DOMContentLoaded', async function () {
     // Your JavaScript code goes here
+    let currentHighScore = localStorage.getItem('highScore') || 0;
+    document.getElementById('highScore').textContent = currentHighScore;
     let isFirstMovieOlder = false;
     let userScore = 0;
-    let highScore = 0;
     let firstMovieTitle = "";
     let firstMovieDate = "";
     let secondMovieTitle = "";
@@ -66,7 +67,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             openModal('Correct!', `Great job! Your answer is correct. ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);
         }else{
             openModal('Wrong', `You chose ${firstMovieTitle}. But ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate}. You end your game with a score of ${userScore} `);   
-            userScore = 0;   
+            if(userScore > currentHighScore){
+                localStorage.setItem('highScore', userScore);
+                document.getElementById('highScore').textContent = userScore;
+            }
+            userScore = 0;
+            
         }
 
         updateImageSource();
@@ -81,6 +87,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             openModal('Correct!', `Great job! Your answer is correct. ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);
         }else{
             openModal('Wrong', `You chose ${secondMovieTitle}. But ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate}. You end your game with a score of ${userScore}`);
+            if(userScore > currentHighScore){
+                localStorage.setItem('highScore', userScore);
+                document.getElementById('highScore').textContent = userScore;
+            }
             userScore = 0;
         }
         updateImageSource();
