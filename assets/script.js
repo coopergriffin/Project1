@@ -1,3 +1,5 @@
+//Cooper Griffin
+
 const apiKeyMovieDB = '7bb9f3fb04d2e6f4faa3c20430fbb78d';
 const apiKeyOpenDB = '94dce9c5';
 
@@ -20,7 +22,17 @@ const getMoviePoster = async (movieId) => {
     }
 };
 
-// assets/js/script.js
+function changeFirstImage() {
+    const firstImage = document.getElementById('firstImage');
+    firstImage.src = 'path/to/new-first-image.jpg'; // Replace with the path to your new image
+}
+
+function changeSecondImage() {
+    const secondImage = document.getElementById('secondImage');
+    secondImage.src = 'path/to/new-second-image.jpg'; // Replace with the path to your new image
+}
+
+// assets/script.js
 document.addEventListener('DOMContentLoaded', async function () {
     // Your JavaScript code goes here
     
@@ -47,4 +59,38 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
         console.error('Error:', error);
     }
+
+    startButton.addEventListener('click', function () {
+        // This function will be executed when the start button is clicked
+        console.log('Start button clicked!');
+        const getRandomMovie = async () => {
+            const randomNumber = Math.floor(Math.random() * 100000); // Generate a random movie ID
+            const response = await fetch(`https://api.themoviedb.org/3/movie/${randomNumber}?api_key=${apiKeyMovieDB}`);
+            const data = await response.json();
+            return data;
+        };
+        
+          // Function to update the image source
+          const updateImageSource = async (imageId) => {
+            const imageElement = document.getElementById(imageId);
+            const movie = await getRandomMovie();
+            const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+            imageElement.src = imageUrl;
+        };
+        
+          // Change Image functions
+          window.changeFirstImage = async () => {
+            await updateImageSource('firstImage');
+        };
+        
+          window.changeSecondImage = async () => {
+            await updateImageSource('secondImage');
+        };
+        
+          // Initial setup
+        updateImageSource('firstImage');
+        updateImageSource('secondImage');
+        
+        // You can add more code here to start your game or perform other actions
+    });
 });
