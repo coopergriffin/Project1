@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     let isFirstMovieOlder = false;
     let userScore = 0;
     let highScore = 0;
+    let firstMovieTitle = "";
+    let firstMovieDate = "";
+    let secondMovieTitle = "";
+    let secondMovieDate = "";
 
     // Function to fetch a random movie from TMDb
     const getRandomMovie = async () => {
@@ -20,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const randomMovie = data.results[randomIndex];
         return randomMovie;
     };
+    
 
     // Function to update the image source
     const updateImageSource = async () => {
@@ -33,8 +38,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         const imageUrl1 = `https://image.tmdb.org/t/p/w500${movie1.poster_path}`;
         imageElement1.src = imageUrl1;
 
-        isFirstMovieOlder = movie.release_date < movie1.release_date;
+        isFirstMovieOlder = movie.release_date <= movie1.release_date;
         console.log(isFirstMovieOlder);
+
+        firstMovieTitle = movie.title;
+        firstMovieDate = movie.release_date;
+        secondMovieTitle = movie1.title;
+        secondMovieDate = movie1.release_date;
     };
 
     // Function to update the score paragraph
@@ -47,7 +57,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.log("First Button Pressed");
         if (isFirstMovieOlder) {
             userScore += 1;
+            exampleCorrectAnswer();
+            openModal('Correct!', `Great job! Your answer is correct. ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);
+        }else{
+            openModal('Wrong', `You chose ${firstMovieTitle}. But ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);      
         }
+
         updateImageSource();
         updateScoreParagraph();
     };
@@ -56,10 +71,16 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.log("Second Button Pressed");
         if (!isFirstMovieOlder) {
             userScore += 1;
+            //exampleCorrectAnswer();
+            openModal('Correct!', `Great job! Your answer is correct. ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);
+        }else{
+            openModal('Wrong', `You chose ${secondMovieTitle}. But ${firstMovieTitle} came out in ${firstMovieDate}, and ${secondMovieTitle} came out in ${secondMovieDate} `);
         }
         updateImageSource();
         updateScoreParagraph();
     };
+
+
 
     startButton.addEventListener('click', function () {
         // Remove previous event listeners
@@ -78,3 +99,29 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateScoreParagraph();
     });
 });
+
+const openModal = (title, message) => {
+    const modal = document.getElementById('resultModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+
+    modalTitle.textContent = title;
+    modalBody.textContent = message;
+
+    modal.classList.add('is-active');
+};
+
+const closeModal = () => {
+    console.log("closeModal function called");
+    const modal = document.getElementById('resultModal');
+    modal.classList.remove('is-active');
+};
+
+// Example of using the modal
+const exampleCorrectAnswer = () => {
+    openModal('Correct!', 'Great job! Your answer is correct.');
+};
+
+const exampleWrongAnswer = () => {
+    openModal('Wrong!', 'Oops! Your answer is incorrect. Try again.');
+};
