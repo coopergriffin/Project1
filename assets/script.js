@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         firstMovieDate = movie.release_date;
         secondMovieTitle = movie1.title;
         secondMovieDate = movie1.release_date;
+        document.getElementById('firstButton').textContent = movie.title;
+        document.getElementById('secondButton').textContent = movie1.title;
     };
 
     // Function to update the score paragraph
